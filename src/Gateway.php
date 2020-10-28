@@ -2,12 +2,12 @@
 
 namespace ByTIC\Payments\Stripe;
 
+use ByTIC\Payments\Gateways\Providers\AbstractGateway\Traits\GatewayTrait;
+use ByTIC\Payments\Gateways\Providers\AbstractGateway\Traits\OverwriteServerCompletePurchaseTrait;
 use ByTIC\Payments\Stripe\Message\PurchaseRequest;
 use Omnipay\Common\Message\AbstractRequest as CommonAbstractRequest;
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\Stripe\PaymentIntentsGateway as AbstractGateway;
-use ByTIC\Payments\Gateways\Providers\AbstractGateway\Traits\GatewayTrait;
-use ByTIC\Payments\Gateways\Providers\AbstractGateway\Traits\OverwriteServerCompletePurchaseTrait;
 
 /**
  * Class Gateway

@@ -42,6 +42,10 @@ class PurchaseRequest extends AbstractCheckoutRequest
             'cancel_url' => $this->getCancelUrl(),
         ];
 
+        foreach (['success_url', 'cancel_url'] as $type) {
+            $data[$type] .= (parse_url($data[$type], PHP_URL_QUERY) ? '&' : '?') . 'stpsid={CHECKOUT_SESSION_ID}';
+        }
+
         $items = $this->getItems();
         if (!($items instanceof ItemBag)) {
             $items = new ItemBag(

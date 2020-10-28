@@ -20,3 +20,7 @@ composer require bytic/payments bytic/payments-stripe
 ```
 
 ## Basic Usage
+
+#### Testing
+https://stripe.com/docs/testing
+https://stripe.com/docs/payments/accept-a-payment#web-test-integration
