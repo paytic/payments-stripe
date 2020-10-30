@@ -17,6 +17,7 @@ class Form extends AbstractForm
         $this->initElementSandbox();
 
         $this->addInput('apiKey', 'apiKey', false);
+        $this->addInput('publicKey', 'publicKey', false);
     }
 
     public function getDataFromModel()
