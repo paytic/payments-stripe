@@ -8,7 +8,7 @@
 
 [![Build Status](https://img.shields.io/travis/bytic/payments-stripe/master.svg?style=flat-square)](https://travis-ci.org/bytic/framework)
 [![Quality Score](https://img.shields.io/scrutinizer/g/bytic/payments-stripe.svg?style=flat-square)](https://scrutinizer-ci.com/g/bytic/payments-stripe)
-[![StyleCI](https://styleci.io/repos/95359082/shield?branch=master)](https://styleci.io/repos/95359082)
+[![StyleCI](https://styleci.io/repos/308069565/shield?branch=master)](https://styleci.io/repos/308069565)
 [![Total Downloads](https://img.shields.io/packagist/dt/bytic/payments-stripe.svg?style=flat-square)](https://packagist.org/packages/bytic/payments-stripe)
 
 ## Installation
