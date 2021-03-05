@@ -12,6 +12,7 @@ use Omnipay\Stripe\PaymentIntentsGateway as AbstractGateway;
 /**
  * Class Gateway
  * @package ByTIC\Payments\Stripe
+ * @method \Omnipay\Common\Message\NotificationInterface acceptNotification(array $options = array())
  */
 class Gateway extends AbstractGateway
 {
@@ -83,5 +84,10 @@ class Gateway extends AbstractGateway
             'publicKey' => $this->getPublicKey(),
             'apiKey' => $this->getApiKey(),
         ];
+    }
+
+    public function __call($name, $arguments)
+    {
+        // TODO: Implement @method \Omnipay\Common\Message\NotificationInterface acceptNotification(array $options = array())
     }
 }

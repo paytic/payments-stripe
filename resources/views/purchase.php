@@ -123,11 +123,15 @@
         }
     </style>
     <script type="text/javascript">
-        var STRIPE_PUBLIC_KEY = "<?php echo $this->get('publicKey'); ?>";
-        var stripe = Stripe(STRIPE_PUBLIC_KEY);
+        var stripe = Stripe(
+            "<?php echo $this->get('publicKey'); ?>"
+            <?php echo $this->has('stripe_account')
+                ? ', { stripeAccount: "' . $this->get('stripe_account') . '"}'
+                : ''; ?>
+        );
 
         function pay() {
-            stripe.redirectToCheckout({ sessionId: "<?php echo $this->get('session_id'); ?>" });
+            stripe.redirectToCheckout({sessionId: "<?php echo $this->get('session_id'); ?>"});
         }
     </script>
 </head>

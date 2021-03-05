@@ -10,8 +10,10 @@ use Omnipay\Common\ItemBag;
  *
  * @method PurchaseResponse send()
  */
-class PurchaseRequest extends AbstractCheckoutRequest
+class PurchaseRequest extends \Omnipay\Stripe\Message\PaymentIntents\PurchaseRequest
 {
+    use Traits\HasKeysTrait;
+
     private function nullIfEmpty(string $value = null): ?string
     {
         return empty($value) ? null : $value;
@@ -41,6 +43,10 @@ class PurchaseRequest extends AbstractCheckoutRequest
             'success_url' => $this->getReturnUrl(),
             'cancel_url' => $this->getCancelUrl(),
         ];
+
+        if ($this->getApplicationFee()) {
+            $data['payment_intent_data']['application_fee_amount'] = $this->getApplicationFeeInteger();
+        }
 
         foreach (['success_url', 'cancel_url'] as $type) {
             $data[$type] .= (parse_url($data[$type], PHP_URL_QUERY) ? '&' : '?') . 'stpsid={CHECKOUT_SESSION_ID}';
@@ -94,16 +100,17 @@ class PurchaseRequest extends AbstractCheckoutRequest
         // used to identify this transaction.
         \Stripe\Stripe::setApiKey($this->getApiKey());
 
+        $options = [];
+        $sentData = [
+            'publicKey' => $this->getPublicKey()
+        ];
+        if ($this->getOnBehalfOf()) {
+            $options['stripe_account'] = $this->getOnBehalfOf();
+            $sentData['stripe_account'] = $this->getOnBehalfOf();
+        }
         // Initiate the session.
-        // Unfortunately (and very, very annoyingly), the API does not allow negative- or zero value items in the
-        // cart, so we have to filter them out (and re-index them) before we build the line items array.
-        // Beware because the amount the customer pays is the sum of the values of the remaining items, so if you
-        // supply negative-valued items, they will NOT be deducted from the payment amount.
-        $session = \Stripe\Checkout\Session::create($data);
-
-        return $this->response = new PurchaseResponse($this, [
-            'session' => $session,
-            'publicKey' => $this->getPublicKey(),
-        ]);
+        $session = \Stripe\Checkout\Session::create($data, $options);
+        $sentData['session'] = $session;
+        return $this->response = new PurchaseResponse($this, $sentData);
     }
 }

@@ -2,7 +2,7 @@
 
 return [
     'transactionId' => random_int(9999999, 9999999999999999),
-    'amount' => 12.34,
+    'amount' => 100,
     'description' => 'Transaction test',
     'currency' => 'ron',
     'card' => [
