@@ -15,6 +15,7 @@ use ByTIC\Payments\Stripe\Gateway;
  */
 class CompletePurchaseRequest extends AbstractCheckoutRequest
 {
+    use Traits\HasKeysTrait;
     use \ByTIC\Omnipay\Common\Message\Traits\SendDataRequestTrait;
     use HasModelRequest;
     use GatewayNotificationRequestTrait {

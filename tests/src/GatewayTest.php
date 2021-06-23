@@ -21,7 +21,8 @@ class GatewayTest extends AbstractTest
 
         $sessionId = $response->getSessionID();
         $content = $response->getViewContent();
-        self::assertContains('stripe.redirectToCheckout({ sessionId:', $content);
+        self::assertContains('stripe.redirectToCheckout({', $content);
+        self::assertContains('sessionId:', $content);
         self::assertContains($sessionId, $content);
     }
 
@@ -42,7 +43,8 @@ class GatewayTest extends AbstractTest
 
         $sessionId = $response->getSessionID();
         $content = $response->getViewContent();
-        self::assertContains('stripe.redirectToCheckout({ sessionId:', $content);
+        self::assertContains('stripe.redirectToCheckout({', $content);
+        self::assertContains('sessionId:', $content);
         self::assertContains($sessionId, $content);
     }
 }
