@@ -1,6 +1,6 @@
 <?php
 
-namespace ByTIC\Payments\Stripe\Message;
+namespace Paytic\Payments\Stripe\Message;
 
 use ByTIC\Omnipay\Common\Message\Traits\HtmlResponses\ConfirmHtmlTrait;
 use Omnipay\Common\Message\AbstractResponse;

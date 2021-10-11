@@ -1,17 +1,17 @@
 <?php
 
-namespace ByTIC\Payments\Stripe;
+namespace Paytic\Payments\Stripe;
 
 use ByTIC\Payments\Gateways\Providers\AbstractGateway\Traits\GatewayTrait;
 use ByTIC\Payments\Gateways\Providers\AbstractGateway\Traits\OverwriteServerCompletePurchaseTrait;
-use ByTIC\Payments\Stripe\Message\PurchaseRequest;
+use Paytic\Payments\Stripe\Message\PurchaseRequest;
 use Omnipay\Common\Message\AbstractRequest as CommonAbstractRequest;
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\Stripe\PaymentIntentsGateway as AbstractGateway;
 
 /**
  * Class Gateway
- * @package ByTIC\Payments\Stripe
+ * @package Paytic\Payments\Stripe
  * @method \Omnipay\Common\Message\NotificationInterface acceptNotification(array $options = array())
  */
 class Gateway extends AbstractGateway

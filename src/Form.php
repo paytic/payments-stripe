@@ -1,13 +1,13 @@
 <?php
 
-namespace ByTIC\Payments\Stripe;
+namespace Paytic\Payments\Stripe;
 
 use ByTIC\Payments\Gateways\Providers\AbstractGateway\Form as AbstractForm;
 use ByTIC\Payments\Models\Methods\Types\CreditCards;
 
 /**
  * Class Form
- * @package ByTIC\Payments\Stripe
+ * @package Paytic\Payments\Stripe
  */
 class Form extends AbstractForm
 {

@@ -1,10 +1,10 @@
 {
-  "name": "bytic/payments-stripe",
+  "name": "paytic/payments-stripe",
   "type": "library",
   "license": "MIT",
-  "description": "Payments module for bytic library for stripe",
+  "description": "Payments module for paytic library for stripe",
   "keywords": [],
-  "homepage": "https://github.com/bytic/payments-stripe",
+  "homepage": "https://github.com/paytic/payments-stripe",
   "authors": [
     {
       "name": "Gabriel Solomon",
@@ -19,17 +19,17 @@
   ],
   "autoload": {
     "psr-4": {
-      "ByTIC\\Payments\\Stripe\\": "src/"
+      "Paytic\\Payments\\Stripe\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "ByTIC\\Payments\\Stripe\\Tests\\": "tests/src",
-      "ByTIC\\Payments\\Stripe\\Tests\\Fixtures\\": "tests/fixtures"
+      "Paytic\\Payments\\Stripe\\Tests\\": "tests/src",
+      "Paytic\\Payments\\Stripe\\Tests\\Fixtures\\": "tests/fixtures"
     }
   },
   "require": {
-    "php": "^7.1",
+    "php": "^7.1|^8.0",
     "omnipay/stripe": "^2.0|^3.0",
     "stripe/stripe-php": "^7.0"
   },

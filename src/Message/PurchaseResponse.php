@@ -1,9 +1,9 @@
 <?php
 
-namespace ByTIC\Payments\Stripe\Message;
+namespace Paytic\Payments\Stripe\Message;
 
 use ByTIC\Omnipay\Common\Message\Traits\HasViewTrait;
-use ByTIC\Payments\Stripe\Utility\Paths;
+use Paytic\Payments\Stripe\Utility\Paths;
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RedirectResponseInterface;
 use Omnipay\Common\Message\RequestInterface;
@@ -11,7 +11,7 @@ use Stripe\Checkout\Session;
 
 /**
  * Class PurchaseResponse
- * @package ByTIC\Payments\Stripe\Message
+ * @package Paytic\Payments\Stripe\Message
  */
 class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace ByTIC\Payments\Stripe\Utility;
+namespace Paytic\Payments\Stripe\Utility;
 
 /**
  * Class Paths
- * @package ByTIC\Payments\Stripe\Utility
+ * @package Paytic\Payments\Stripe\Utility
  */
 class Paths
 {

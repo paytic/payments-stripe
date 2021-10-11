@@ -1,11 +1,11 @@
 <?php
 
-namespace ByTIC\Payments\Stripe\Message;
+namespace Paytic\Payments\Stripe\Message;
 
 use ByTIC\Omnipay\Common\Message\Traits\GatewayNotificationRequestTrait;
 use ByTIC\Payments\Gateways\Providers\AbstractGateway\Message\Traits\HasGatewayRequestTrait;
 use ByTIC\Payments\Gateways\Providers\AbstractGateway\Message\Traits\HasModelRequest;
-use ByTIC\Payments\Stripe\Gateway;
+use Paytic\Payments\Stripe\Gateway;
 
 /**
  * Class PurchaseResponse

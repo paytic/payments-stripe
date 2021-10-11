@@ -1,12 +1,12 @@
 <?php
 
-namespace ByTIC\Payments\Stripe\Message;
+namespace Paytic\Payments\Stripe\Message;
 
 use Omnipay\Common\ItemBag;
 
 /**
  * Class PurchaseResponse
- * @package ByTIC\Payments\Stripe\Message
+ * @package Paytic\Payments\Stripe\Message
  *
  * @method PurchaseResponse send()
  */

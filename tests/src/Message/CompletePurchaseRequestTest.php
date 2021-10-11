@@ -1,17 +1,17 @@
 <?php
 
-namespace ByTIC\Payments\Stripe\Tests\Message;
+namespace Paytic\Payments\Stripe\Tests\Message;
 
-use ByTIC\Payments\Stripe\Message\CompletePurchaseRequest;
-use ByTIC\Payments\Stripe\Message\CompletePurchaseResponse;
-use ByTIC\Payments\Stripe\Tests\AbstractTest;
+use Paytic\Payments\Stripe\Message\CompletePurchaseRequest;
+use Paytic\Payments\Stripe\Message\CompletePurchaseResponse;
+use Paytic\Payments\Stripe\Tests\AbstractTest;
 use ByTIC\Payments\Tests\Fixtures\Records\Purchases\PurchasableRecord;
 use ByTIC\Payments\Tests\Fixtures\Records\Purchases\PurchasableRecordManager;
 use Mockery\Mock;
 
 /**
  * Class CompletePurchaseRequestTest
- * @package ByTIC\Payments\Stripe\Tests\Message
+ * @package Paytic\Payments\Stripe\Tests\Message
  */
 class CompletePurchaseRequestTest extends AbstractTest
 {

@@ -1,16 +1,18 @@
 <?php
 
-namespace ByTIC\Payments\Stripe\Tests;
+namespace Paytic\Payments\Stripe\Tests;
+
+use Omnipay\Common\Message\AbstractRequest;
 
 /**
  * Class GatewayTest
- * @package ByTIC\Payments\Stripe\Tests
+ * @package Paytic\Payments\Stripe\Tests
  */
 class GatewayTest extends AbstractTest
 {
     public function test_purchase_redirect()
     {
-        $gateway = new \ByTIC\Payments\Stripe\Gateway();
+        $gateway = new \Paytic\Payments\Stripe\Gateway();
         $gateway->initialize(require TEST_FIXTURE_PATH . '/enviromentParams.php');
 
         $parameters = require TEST_FIXTURE_PATH . '/requests/Purchase/baseRequest.php';
@@ -28,7 +30,7 @@ class GatewayTest extends AbstractTest
 
     public function test_purchase_connected_account()
     {
-        $gateway = new \ByTIC\Payments\Stripe\Gateway();
+        $gateway = new \Paytic\Payments\Stripe\Gateway();
         $gateway->initialize(require TEST_FIXTURE_PATH . '/enviromentParams.php');
 
         $parameters = require TEST_FIXTURE_PATH . '/requests/Purchase/baseRequest.php';
@@ -46,5 +48,14 @@ class GatewayTest extends AbstractTest
         self::assertContains('stripe.redirectToCheckout({', $content);
         self::assertContains('sessionId:', $content);
         self::assertContains($sessionId, $content);
+    }
+
+    public function test_serverCompletePurchase()
+    {
+        $gateway = new \Paytic\Payments\Stripe\Gateway();
+        $gateway->initialize(require TEST_FIXTURE_PATH . '/enviromentParams.php');
+
+        $request = $gateway->serverCompletePurchase();
+        self::assertInstanceOf(AbstractRequest::class, $request);
     }
 }

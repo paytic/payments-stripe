@@ -1,13 +1,13 @@
 <?php
 
-namespace ByTIC\Payments\Stripe\Message\Traits;
+namespace Paytic\Payments\Stripe\Message\Traits;
 
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\Common\Message\AbstractRequest as CommonAbstractRequest;
 
 /**
  * Trait HasKeysTrait
- * @package ByTIC\Payments\Stripe\Message\Traits
+ * @package Paytic\Payments\Stripe\Message\Traits
  */
 trait HasKeysTrait
 {
