@@ -16,4 +16,9 @@ class ServerCompletePurchaseRequest extends CommonAbstractRequest {
     {
         // TODO: Implement sendData() method.
     }
+
+    public function isValidNotification()
+    {
+        return false;
+    }
 }
