@@ -2,21 +2,26 @@
 
 namespace Paytic\Payments\Stripe\Message;
 
-use ByTIC\Omnipay\Common\Message\Traits\GatewayNotificationRequestTrait;
+use Exception;
+use Paytic\Omnipay\Common\Message\Traits\GatewayNotificationRequestTrait;
 use ByTIC\Payments\Gateways\Providers\AbstractGateway\Message\Traits\HasGatewayRequestTrait;
 use ByTIC\Payments\Gateways\Providers\AbstractGateway\Message\Traits\HasModelRequest;
+use Paytic\Omnipay\Common\Message\Traits\SendDataRequestTrait;
 use Paytic\Payments\Stripe\Gateway;
+use Stripe\Checkout\Session;
+use Stripe\PaymentIntent;
+use Stripe\Stripe;
 
 /**
  * Class PurchaseResponse
  * @package ByTIC\Payments\Gateways\Providers\Paylike\Message
  *
- * @method CompletePurchaseResponse send
+ * @method CompletePurchaseResponse send()
  */
 class CompletePurchaseRequest extends AbstractCheckoutRequest
 {
     use Traits\HasKeysTrait;
-    use \ByTIC\Omnipay\Common\Message\Traits\SendDataRequestTrait;
+    use SendDataRequestTrait;
     use HasModelRequest;
     use GatewayNotificationRequestTrait {
         getData as getDataNotificationTrait;
@@ -46,7 +51,7 @@ class CompletePurchaseRequest extends AbstractCheckoutRequest
 
     /**
      * @return bool|mixed
-     * @throws \Exception
+     * @throws Exception
      */
     protected function parseNotification()
     {
@@ -56,10 +61,10 @@ class CompletePurchaseRequest extends AbstractCheckoutRequest
         }
 
         // Retrieve the session that would have been started earlier.
-        \Stripe\Stripe::setApiKey($this->getApiKey());
+        Stripe::setApiKey($this->getApiKey());
 
-        $session = \Stripe\Checkout\Session::retrieve($this->httpRequest->query->get('stpsid'));
-        $paymentIntent = \Stripe\PaymentIntent::retrieve($session->payment_intent);
+        $session = Session::retrieve($this->httpRequest->query->get('stpsid'));
+        $paymentIntent = PaymentIntent::retrieve($session->payment_intent);
 
         return [
             'session' => $session,
@@ -68,11 +73,11 @@ class CompletePurchaseRequest extends AbstractCheckoutRequest
     }
 
     /**
-     * @param Gateway $modelGateway
+     * @param Gateway $gateway
      */
-    protected function updateParametersFromGateway(Gateway $modelGateway)
+    protected function updateParametersFromGateway($gateway)
     {
-        $this->setPublicKey($modelGateway->getPublicKey());
-        $this->setApiKey($modelGateway->getApiKey());
+        $this->setPublicKey($gateway->getPublicKey());
+        $this->setApiKey($gateway->getApiKey());
     }
 }

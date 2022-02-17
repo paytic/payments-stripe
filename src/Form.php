@@ -32,15 +32,15 @@ class Form extends AbstractForm
     /**
      * @return bool
      */
-    public function process()
+    public function process(): bool
     {
-        parent::process();
+        $return = parent::process();
 
         $model = $this->getForm()->getModel();
         $options = $model->getPaymentGatewayOptions();
         $model->setPaymentGatewayOptions($options);
         $model->saveRecord();
 
-        return $options;
+        return $return;
     }
 }

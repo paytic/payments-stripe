@@ -1,0 +1,12 @@
+includes:
+    - ./vendor/bytic/phpqaconfig/rules/phpstan/phpstan.neon.dist
+
+parameters:
+    level: 5
+
+    bootstrapFiles:
+        - tests/constants.php
+
+    paths:
+        - src
+        - tests

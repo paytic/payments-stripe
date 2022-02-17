@@ -1,6 +1,6 @@
 <?php
 
-$parameters = isset($parameters) ? $parameters : [];
+$parameters = $parameters ?? [];
 
 $parameters = array_merge(
     $parameters,

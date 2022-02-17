@@ -3,6 +3,8 @@
 namespace Paytic\Payments\Stripe\Tests;
 
 use Omnipay\Common\Message\AbstractRequest;
+use Paytic\Payments\Stripe\Gateway;
+use Paytic\Payments\Stripe\Message\PurchaseResponse;
 
 /**
  * Class GatewayTest
@@ -12,25 +14,28 @@ class GatewayTest extends AbstractTest
 {
     public function test_purchase_redirect()
     {
-        $gateway = new \Paytic\Payments\Stripe\Gateway();
+        $gateway = new Gateway();
         $gateway->initialize(require TEST_FIXTURE_PATH . '/enviromentParams.php');
 
         $parameters = require TEST_FIXTURE_PATH . '/requests/Purchase/baseRequest.php';
 
         $parameters['returnUrl'] = 'http://test.com';
+
         $request = $gateway->purchase($parameters);
+
+        /** @var PurchaseResponse $response */
         $response = $request->send();
 
         $sessionId = $response->getSessionID();
         $content = $response->getViewContent();
-        self::assertContains('stripe.redirectToCheckout({', $content);
-        self::assertContains('sessionId:', $content);
-        self::assertContains($sessionId, $content);
+        self::assertStringContainsString('stripe.redirectToCheckout({', $content);
+        self::assertStringContainsString('sessionId:', $content);
+        self::assertStringContainsString($sessionId, $content);
     }
 
     public function test_purchase_connected_account()
     {
-        $gateway = new \Paytic\Payments\Stripe\Gateway();
+        $gateway = new Gateway();
         $gateway->initialize(require TEST_FIXTURE_PATH . '/enviromentParams.php');
 
         $parameters = require TEST_FIXTURE_PATH . '/requests/Purchase/baseRequest.php';
@@ -45,14 +50,14 @@ class GatewayTest extends AbstractTest
 
         $sessionId = $response->getSessionID();
         $content = $response->getViewContent();
-        self::assertContains('stripe.redirectToCheckout({', $content);
-        self::assertContains('sessionId:', $content);
-        self::assertContains($sessionId, $content);
+        self::assertStringContainsString('stripe.redirectToCheckout({', $content);
+        self::assertStringContainsString('sessionId:', $content);
+        self::assertStringContainsString($sessionId, $content);
     }
 
     public function test_serverCompletePurchase()
     {
-        $gateway = new \Paytic\Payments\Stripe\Gateway();
+        $gateway = new Gateway();
         $gateway->initialize(require TEST_FIXTURE_PATH . '/enviromentParams.php');
 
         $request = $gateway->serverCompletePurchase();

@@ -4,15 +4,15 @@ namespace Paytic\Payments\Stripe;
 
 use ByTIC\Payments\Gateways\Providers\AbstractGateway\Traits\GatewayTrait;
 use ByTIC\Payments\Gateways\Providers\AbstractGateway\Traits\OverwriteServerCompletePurchaseTrait;
+use Omnipay\Common\Message\NotificationInterface;
 use Paytic\Payments\Stripe\Message\PurchaseRequest;
-use Omnipay\Common\Message\AbstractRequest as CommonAbstractRequest;
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\Stripe\PaymentIntentsGateway as AbstractGateway;
 
 /**
  * Class Gateway
  * @package Paytic\Payments\Stripe
- * @method \Omnipay\Common\Message\NotificationInterface acceptNotification(array $options = array())
+ * @method NotificationInterface acceptNotification(array $options = array())
  */
 class Gateway extends AbstractGateway
 {
@@ -21,7 +21,7 @@ class Gateway extends AbstractGateway
 
     /**
      * @param array $parameters
-     * @return PurchaseRequest
+     * @return PurchaseRequest|RequestInterface
      */
     public function purchase(array $parameters = []): RequestInterface
     {
@@ -66,18 +66,17 @@ class Gateway extends AbstractGateway
 
     /**
      * @param $value
-     * @return CommonAbstractRequest
+     * @return self
      */
-    public function setPublicKey($value)
+    public function setPublicKey(string $value): self
     {
         return $this->setParameter('publicKey', $value);
     }
 
-    /** @noinspection PhpMissingParentCallCommonInspection
-     *
+    /**
      * {@inheritdoc}
      */
-    public function getDefaultParameters()
+    public function getDefaultParameters(): array
     {
         return [
             'testMode' => true, // Must be the 1st in the list!

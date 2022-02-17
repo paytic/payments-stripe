@@ -2,7 +2,7 @@
 
 namespace Paytic\Payments\Stripe\Message;
 
-use ByTIC\Omnipay\Common\Message\Traits\HtmlResponses\ConfirmHtmlTrait;
+use Paytic\Omnipay\Common\Message\Traits\HtmlResponses\ConfirmHtmlTrait;
 use Omnipay\Common\Message\AbstractResponse;
 use ByTIC\Payments\Gateways\Providers\AbstractGateway\Message\Traits\CompletePurchaseResponseTrait;
 use Stripe\PaymentIntent;
@@ -16,10 +16,11 @@ class CompletePurchaseResponse extends AbstractResponse
     use ConfirmHtmlTrait;
     use CompletePurchaseResponseTrait;
 
-    /**
-     * @var bool
-     */
-    private $successful = false;
+    protected bool $successful = false;
+
+    protected ?string $code = null;
+
+    protected ?string $message = null;
 
     /**
      * @inheritDoc
@@ -29,7 +30,7 @@ class CompletePurchaseResponse extends AbstractResponse
         parent::__construct($request, $data);
 
         if (isset($data['notification']['paymentIntent'])) {
-            /** @var \Stripe\PaymentIntent $paymentIntent */
+            /** @var PaymentIntent $paymentIntent */
             $paymentIntent = $data['notification']['paymentIntent'];
 
             $this->internalTransactionRef = $paymentIntent->id;
@@ -58,12 +59,12 @@ class CompletePurchaseResponse extends AbstractResponse
         }
     }
 
-    public function isSuccessful()
+    public function isSuccessful(): bool
     {
         return $this->successful;
     }
 
-    public function getMessage()
+    public function getMessage(): ?string
     {
         return $this->message;
     }
@@ -83,7 +84,7 @@ class CompletePurchaseResponse extends AbstractResponse
     }
 
     /**
-     * @return []
+     * @return array
      */
     public function getSessionDebug(): array
     {
