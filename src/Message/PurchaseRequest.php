@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytic\Payments\Stripe\Message;
 
 use Omnipay\Common\ItemBag;
 
 /**
- * Class PurchaseResponse
- * @package Paytic\Payments\Stripe\Message
+ * Class PurchaseResponse.
  *
  * @method PurchaseResponse send()
  */
@@ -50,7 +51,7 @@ class PurchaseRequest extends \Omnipay\Stripe\Message\PaymentIntents\PurchaseReq
         }
 
         foreach (['success_url', 'cancel_url'] as $type) {
-            $data[$type] .= (parse_url($data[$type], PHP_URL_QUERY) ? '&' : '?') . 'stpsid={CHECKOUT_SESSION_ID}';
+            $data[$type] .= (parse_url($data[$type], \PHP_URL_QUERY) ? '&' : '?') . 'stpsid={CHECKOUT_SESSION_ID}';
         }
 
         $items = $this->getItems();
@@ -63,8 +64,8 @@ class PurchaseRequest extends \Omnipay\Stripe\Message\PaymentIntents\PurchaseReq
                         'description' => $this->getDescription(),
                         'quantity' => 1,
                         'currency' => $this->getCurrency(),
-                        'price' => $this->getAmount()
-                    ]
+                        'price' => $this->getAmount(),
+                    ],
                 ]
             );
         }
@@ -73,7 +74,7 @@ class PurchaseRequest extends \Omnipay\Stripe\Message\PaymentIntents\PurchaseReq
             function (\Omnipay\Common\Item $item) {
                 return [
                     'price_data' => [
-                        'unit_amount' => (int)(100 * $item->getPrice()),
+                        'unit_amount' => (int) (100 * $item->getPrice()),
                         'currency' => $this->getCurrency(),
                         'product_data' => [
                             'name' => $item->getName(),
@@ -107,7 +108,7 @@ class PurchaseRequest extends \Omnipay\Stripe\Message\PaymentIntents\PurchaseReq
 
         $options = [];
         $sentData = [
-            'publicKey' => $this->getPublicKey()
+            'publicKey' => $this->getPublicKey(),
         ];
         if ($this->getOnBehalfOf()) {
             $options['stripe_account'] = $this->getOnBehalfOf();
@@ -116,6 +117,7 @@ class PurchaseRequest extends \Omnipay\Stripe\Message\PaymentIntents\PurchaseReq
         // Initiate the session.
         $session = \Stripe\Checkout\Session::create($data, $options);
         $sentData['session'] = $session;
+
         return $this->response = new PurchaseResponse($this, $sentData);
     }
 }

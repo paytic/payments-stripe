@@ -1,15 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytic\Payments\Stripe\Utility;
 
 /**
- * Class Paths
- * @package Paytic\Payments\Stripe\Utility
+ * Class Paths.
  */
 class Paths
 {
     public static function viewsPath()
     {
-        return dirname(dirname(__DIR__)) . '/resources/views/';
+        return \dirname(__DIR__, 2) . '/resources/views/';
     }
 }

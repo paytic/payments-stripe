@@ -1,12 +1,15 @@
-includes:
-    - ./vendor/bytic/phpqaconfig/rules/phpstan/phpstan.neon.dist
 
 parameters:
-    level: 5
+    level: 0
 
-    bootstrapFiles:
-        - tests/constants.php
+    tipsOfTheDay: false
+    treatPhpDocTypesAsCertain: false
 
     paths:
+        - examples
         - src
         - tests
+
+parametersSchema:
+
+conditionalTags:

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytic\Payments\Stripe\Tests;
 
 use Omnipay\Common\Message\AbstractRequest;
@@ -7,12 +9,11 @@ use Paytic\Payments\Stripe\Gateway;
 use Paytic\Payments\Stripe\Message\PurchaseResponse;
 
 /**
- * Class GatewayTest
- * @package Paytic\Payments\Stripe\Tests
+ * Class GatewayTest.
  */
 class GatewayTest extends AbstractTest
 {
-    public function test_purchase_redirect()
+    public function testPurchaseRedirect()
     {
         $gateway = new Gateway();
         $gateway->initialize(require TEST_FIXTURE_PATH . '/enviromentParams.php');
@@ -33,7 +34,7 @@ class GatewayTest extends AbstractTest
         self::assertStringContainsString($sessionId, $content);
     }
 
-    public function test_purchase_connected_account()
+    public function testPurchaseConnectedAccount()
     {
         $gateway = new Gateway();
         $gateway->initialize(require TEST_FIXTURE_PATH . '/enviromentParams.php');
@@ -55,7 +56,7 @@ class GatewayTest extends AbstractTest
         self::assertStringContainsString($sessionId, $content);
     }
 
-    public function test_serverCompletePurchase()
+    public function testServerCompletePurchase()
     {
         $gateway = new Gateway();
         $gateway->initialize(require TEST_FIXTURE_PATH . '/enviromentParams.php');

@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytic\Payments\Stripe\Message;
 
-use Exception;
+use Paytic\Payments\Gateways\Providers\AbstractGateway\Message\Traits\HasGatewayRequestTrait;
+use Paytic\Payments\Gateways\Providers\AbstractGateway\Message\Traits\HasModelRequest;
 use Paytic\Omnipay\Common\Message\Traits\GatewayNotificationRequestTrait;
-use ByTIC\Payments\Gateways\Providers\AbstractGateway\Message\Traits\HasGatewayRequestTrait;
-use ByTIC\Payments\Gateways\Providers\AbstractGateway\Message\Traits\HasModelRequest;
 use Paytic\Omnipay\Common\Message\Traits\SendDataRequestTrait;
 use Paytic\Payments\Stripe\Gateway;
 use Stripe\Checkout\Session;
@@ -13,34 +14,34 @@ use Stripe\PaymentIntent;
 use Stripe\Stripe;
 
 /**
- * Class PurchaseResponse
- * @package ByTIC\Payments\Gateways\Providers\Paylike\Message
+ * Class PurchaseResponse.
  *
  * @method CompletePurchaseResponse send()
  */
 class CompletePurchaseRequest extends AbstractCheckoutRequest
 {
-    use Traits\HasKeysTrait;
-    use SendDataRequestTrait;
-    use HasModelRequest;
     use GatewayNotificationRequestTrait {
         getData as getDataNotificationTrait;
     }
     use HasGatewayRequestTrait;
+    use HasModelRequest;
+    use SendDataRequestTrait;
+    use Traits\HasKeysTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getData(): array
     {
         $return = $this->getDataNotificationTrait();
         // Add model only if has data
-        if (count($return)) {
+        if (\count($return)) {
             $return['model'] = $this->getModel();
         }
 
         return $return;
     }
+
     /**
      * @return mixed
      */
@@ -51,7 +52,8 @@ class CompletePurchaseRequest extends AbstractCheckoutRequest
 
     /**
      * @return bool|mixed
-     * @throws Exception
+     *
+     * @throws \Exception
      */
     protected function parseNotification()
     {
@@ -68,7 +70,7 @@ class CompletePurchaseRequest extends AbstractCheckoutRequest
 
         return [
             'session' => $session,
-            'paymentIntent' => $paymentIntent
+            'paymentIntent' => $paymentIntent,
         ];
     }
 

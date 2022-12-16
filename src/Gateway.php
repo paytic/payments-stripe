@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytic\Payments\Stripe;
 
-use ByTIC\Payments\Gateways\Providers\AbstractGateway\Traits\GatewayTrait;
-use ByTIC\Payments\Gateways\Providers\AbstractGateway\Traits\OverwriteServerCompletePurchaseTrait;
+use Paytic\Payments\Gateways\Providers\AbstractGateway\Traits\GatewayTrait;
+use Paytic\Payments\Gateways\Providers\AbstractGateway\Traits\OverwriteServerCompletePurchaseTrait;
 use Omnipay\Common\Message\NotificationInterface;
-use Paytic\Payments\Stripe\Message\PurchaseRequest;
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\Stripe\PaymentIntentsGateway as AbstractGateway;
+use Paytic\Payments\Stripe\Message\PurchaseRequest;
 
 /**
- * Class Gateway
- * @package Paytic\Payments\Stripe
+ * Class Gateway.
+ *
  * @method NotificationInterface acceptNotification(array $options = array())
  */
 class Gateway extends AbstractGateway
@@ -20,7 +22,6 @@ class Gateway extends AbstractGateway
     use OverwriteServerCompletePurchaseTrait;
 
     /**
-     * @param array $parameters
      * @return PurchaseRequest|RequestInterface
      */
     public function purchase(array $parameters = []): RequestInterface
@@ -29,27 +30,24 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function setSandbox($value): self
     {
-        return $this->setTestMode($value == 'yes');
+        return $this->setTestMode('yes' == $value);
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getSandbox(): string
     {
-        return $this->getTestMode() === true ? 'yes' : 'no';
+        return true === $this->getTestMode() ? 'yes' : 'no';
     }
 
-    /**
-     * @return bool
-     */
     public function isActive(): bool
     {
-        if (strlen($this->getApiKey()) >= 5) {
+        if (\strlen($this->getApiKey()) >= 5) {
             return true;
         }
 
@@ -64,10 +62,6 @@ class Gateway extends AbstractGateway
         return $this->getParameter('publicKey');
     }
 
-    /**
-     * @param $value
-     * @return self
-     */
     public function setPublicKey(string $value): self
     {
         return $this->setParameter('publicKey', $value);

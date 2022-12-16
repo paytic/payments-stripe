@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytic\Payments\Stripe\Message\Traits;
 
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\Common\Message\AbstractRequest as CommonAbstractRequest;
 
 /**
- * Trait HasKeysTrait
- * @package Paytic\Payments\Stripe\Message\Traits
+ * Trait HasKeysTrait.
  */
 trait HasKeysTrait
 {
@@ -20,7 +21,6 @@ trait HasKeysTrait
     }
 
     /**
-     * @param $value
      * @return CommonAbstractRequest
      */
     public function setPublicKey($value)
@@ -30,8 +30,6 @@ trait HasKeysTrait
 
     /**
      * Get the gateway API Key (the "secret key").
-     *
-     * @return string
      */
     public function getApiKey(): string
     {
@@ -41,7 +39,7 @@ trait HasKeysTrait
     /**
      * Set the gateway API Key.
      *
-     * @return AbstractRequest provides a fluent interface.
+     * @return AbstractRequest provides a fluent interface
      */
     public function setApiKey($value): AbstractRequest
     {

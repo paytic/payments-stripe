@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytic\Payments\Stripe;
 
-use ByTIC\Payments\Gateways\Providers\AbstractGateway\Form as AbstractForm;
-use ByTIC\Payments\Models\Methods\Types\CreditCards;
+use Paytic\Payments\Gateways\Providers\AbstractGateway\Form as AbstractForm;
+use Paytic\Payments\Models\Methods\Types\CreditCards;
 
 /**
- * Class Form
- * @package Paytic\Payments\Stripe
+ * Class Form.
  */
 class Form extends AbstractForm
 {
@@ -29,9 +30,6 @@ class Form extends AbstractForm
         parent::getDataFromModel();
     }
 
-    /**
-     * @return bool
-     */
     public function process(): bool
     {
         $return = parent::process();

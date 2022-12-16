@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytic\Payments\Stripe\Tests;
 
 use Omnipay\Common\Http\Client;
@@ -7,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 /**
- * Class AbstractTest
+ * Class AbstractTest.
  */
 abstract class AbstractTest extends TestCase
 {
@@ -19,7 +21,6 @@ abstract class AbstractTest extends TestCase
     protected $client;
 
     /**
-     * @param $path
      * @return HttpRequest
      */
     protected function generateRequestFromFixtures($path)
@@ -27,12 +28,13 @@ abstract class AbstractTest extends TestCase
         $httpRequest = HttpRequest::createFromGlobals();
         $parameters = require $path;
 
-        $httpRequest->query->replace(isset($parameters['GET']) ? $parameters['GET'] : []);
-        $httpRequest->request->replace(isset($parameters['POST']) ? $parameters['POST'] : []);
+        $httpRequest->query->replace($parameters['GET'] ?? []);
+        $httpRequest->request->replace($parameters['POST'] ?? []);
+
         return $httpRequest;
     }
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->client = new Client();

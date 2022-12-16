@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'transactionId' => random_int(9999999, 9999999999999999),
     'amount' => 100,

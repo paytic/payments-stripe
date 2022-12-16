@@ -1,20 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytic\Payments\Stripe\Message;
 
-use Paytic\Omnipay\Common\Message\Traits\HtmlResponses\ConfirmHtmlTrait;
+use Paytic\Payments\Gateways\Providers\AbstractGateway\Message\Traits\CompletePurchaseResponseTrait;
 use Omnipay\Common\Message\AbstractResponse;
-use ByTIC\Payments\Gateways\Providers\AbstractGateway\Message\Traits\CompletePurchaseResponseTrait;
+use Paytic\Omnipay\Common\Message\Traits\HtmlResponses\ConfirmHtmlTrait;
 use Stripe\PaymentIntent;
 
 /**
- * Class CompletePurchaseResponse
- * @package ByTIC\Payments\Gateways\Providers\Paylike\Message
+ * Class CompletePurchaseResponse.
  */
 class CompletePurchaseResponse extends AbstractResponse
 {
-    use ConfirmHtmlTrait;
     use CompletePurchaseResponseTrait;
+    use ConfirmHtmlTrait;
 
     protected bool $successful = false;
 
@@ -23,7 +24,7 @@ class CompletePurchaseResponse extends AbstractResponse
     protected ?string $message = null;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function __construct(CompletePurchaseRequest $request, $data)
     {
@@ -51,7 +52,6 @@ class CompletePurchaseResponse extends AbstractResponse
                     $this->successful = false;
                     $this->message = 'Unknown error';
                     break;
-
             }
         } else {
             $this->successful = false; // Just make sure.
@@ -74,7 +74,6 @@ class CompletePurchaseResponse extends AbstractResponse
         return $this->code;
     }
 
-
     /** @noinspection PhpMissingParentCallCommonInspection
      * @return bool
      */
@@ -83,15 +82,13 @@ class CompletePurchaseResponse extends AbstractResponse
         return true;
     }
 
-    /**
-     * @return array
-     */
     public function getSessionDebug(): array
     {
         $notification = $this->getDataProperty('notification');
+
         return [
             'session' => $notification['session']->toArray(),
-            'paymentIntent' => $notification['paymentIntent']->toArray()
+            'paymentIntent' => $notification['paymentIntent']->toArray(),
         ];
     }
 }

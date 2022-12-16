@@ -1,30 +1,30 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Paytic\Payments\Stripe\Message;
 
-use InvalidArgumentException;
-use Paytic\Omnipay\Common\Message\Traits\HasViewTrait;
-use Paytic\Payments\Stripe\Utility\Paths;
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RedirectResponseInterface;
 use Omnipay\Common\Message\RequestInterface;
+use Paytic\Omnipay\Common\Message\Traits\HasViewTrait;
+use Paytic\Payments\Stripe\Utility\Paths;
 use Stripe\Checkout\Session;
 
 /**
- * Class PurchaseResponse
- * @package Paytic\Payments\Stripe\Message
+ * Class PurchaseResponse.
  */
 class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
     use HasViewTrait;
 
     /**
-     * @var Session|null $session
+     * @var Session|null
      */
     private $session = null;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function __construct(RequestInterface $request, $data)
     {
@@ -33,13 +33,10 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
         if (isset($data['session']) && $data['session'] instanceof Session) {
             $this->setSession($data['session']);
         } else {
-            throw new InvalidArgumentException('A valid Session must be supplied');
+            throw new \InvalidArgumentException('A valid Session must be supplied');
         }
     }
 
-    /**
-     * @param Session $session
-     */
     public function setSession(Session $session)
     {
         $this->session = $session;
@@ -50,7 +47,6 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
         return $this->session ? $this->session->id : null;
     }
 
-
     protected function initViewVars()
     {
         $data = $this->getData();
@@ -59,7 +55,7 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function generateViewPath(): string
     {
