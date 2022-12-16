@@ -40,6 +40,7 @@ class PurchaseRequest extends \Omnipay\Stripe\Message\PaymentIntents\PurchaseReq
             'payment_intent_data' => [
                 'description' => $this->getDescription(),
             ],
+            'mode' => 'payment',
             'success_url' => $this->getReturnUrl(),
             'cancel_url' => $this->getCancelUrl(),
         ];
@@ -71,10 +72,14 @@ class PurchaseRequest extends \Omnipay\Stripe\Message\PaymentIntents\PurchaseReq
         $data['line_items'] = array_map(
             function (\Omnipay\Common\Item $item) {
                 return [
-                    'name' => $item->getName(),
-                    'description' => $this->nullIfEmpty($item->getDescription()),
-                    'amount' => (int)(100 * $item->getPrice()),
-                    'currency' => $this->getCurrency(),
+                    'price_data' => [
+                        'unit_amount' => (int)(100 * $item->getPrice()),
+                        'currency' => $this->getCurrency(),
+                        'product_data' => [
+                            'name' => $item->getName(),
+                            'description' => $this->nullIfEmpty($item->getDescription()),
+                        ],
+                    ],
                     'quantity' => $item->getQuantity(),
                 ];
             },

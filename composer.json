@@ -25,7 +25,7 @@
   "require": {
     "php": "^7.4|^8.0",
     "omnipay/stripe": "^2.0|^3.0",
-    "stripe/stripe-php": "^7.0"
+    "stripe/stripe-php": "^10.0"
   },
   "require-dev": {
     "bytic/payments": "^1.0",
@@ -37,5 +37,13 @@
     "bytic/facebook-pixel": "^1.0"
   },
   "prefer-stable": true,
-  "minimum-stability": "dev"
+  "minimum-stability": "dev",
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "ergebnis/composer-normalize": true,
+      "phpstan/extension-installer": true,
+      "bytic/phpqatools": true
+    }
+  }
 }
